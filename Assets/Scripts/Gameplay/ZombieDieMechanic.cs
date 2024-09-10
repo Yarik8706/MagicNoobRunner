@@ -5,13 +5,24 @@ namespace Gameplay
 {
     public class ZombieDieMechanic : MonoBehaviour
     {
+        [SerializeField] private EnemyPartOfBody[] _enemyPartOfBodies;
         [SerializeField] private Animator _animator;
         [SerializeField] private ZombieAttackMechanic _zombieAttackMechanic;
         [SerializeField] private Rigidbody[] _rigidbodies;
+        [SerializeField] private int _lives = 3;
 
-        private void OnTriggerEnter(Collider other)
+        private void Start()
         {
-            if (other.CompareTag("Arrow"))
+            foreach (var partOfBody in _enemyPartOfBodies)
+            {
+                partOfBody.AddDamageListener(OnDamageEvent);
+            }
+        }
+
+        private void OnDamageEvent(Collider other, int damage)
+        {
+            _lives -= damage;
+            if (_lives <= 0)
             {
                 _animator.enabled = false;
                 _zombieAttackMechanic.enabled = false;

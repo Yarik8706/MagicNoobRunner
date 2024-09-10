@@ -55,9 +55,8 @@ public class StandardizedProjectile : MonoBehaviour
     #endregion
     
     // Start is called before the first frame update
-    void Start()
-    {        
-        // Reset timer
+    private void Start()
+    {     
         currentTime = 0;
         // Cache rigidbody
         if (rigid==null)
@@ -87,9 +86,8 @@ public class StandardizedProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (!collisionHappened)
+        if (!collisionHappened && projectileMeshRenderer.enabled)
         {
-            // Start from 90 vert and rotate depending on the launch angle and velocity
             transform.rotation = Quaternion.LookRotation(rigid.velocity);
         }
     }

@@ -535,31 +535,26 @@ public class StandardizedBow : MonoBehaviour
                 Debug.Log("Error on projectile accuracy switch!");
                 break;
         }
-        // Axis switch for different models
+        
         switch (projectileForwardAxis)
         {
             case axisDirection.XAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.forward * x + Vector3.up * y;                
-                lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
-                lastProjectileRigidbody.velocity = (lastProjectileTransform.right * currentPower);
                 break;
             case axisDirection.YAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.right * x + Vector3.forward * y;
-                lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
-                lastProjectileRigidbody.velocity = (lastProjectileTransform.up * currentPower);
                 break;
             case axisDirection.ZAxis:
                 lastProjectileTransform.localEulerAngles = lastProjectileTransform.localEulerAngles + Vector3.up * x + Vector3.right * y;                
-                lastProjectileTransform.parent = null;
-                lastProjectileRigidbody.useGravity = true;
-                lastProjectileRigidbody.velocity = (lastProjectileTransform.forward * currentPower);
                 break;
             default:
                 Debug.Log("Error on projectile axis switch!");
                 break;
         }
+        lastProjectileTransform.parent = null;
+        lastProjectileRigidbody.useGravity = true;
+        lastProjectileRigidbody.velocity = (lastProjectileTransform.forward * currentPower);
+        lastProjectileTransform.rotation = Quaternion.LookRotation(lastProjectileRigidbody.velocity);
     }
     #endregion
 
@@ -616,8 +611,7 @@ public class StandardizedBow : MonoBehaviour
             return 0.5f * (Mathf.Sqrt(-((2 * p) - 3) * ((2 * p) - 1)) + 1);
         }
     }
-    /// <summary>
-    /// </summary>
+    
     static public float BounceEaseOut(float p)
     {
         if (p < 4 / 11.0f)
@@ -637,14 +631,12 @@ public class StandardizedBow : MonoBehaviour
             return (54 / 5.0f * p * p) - (513 / 25.0f * p) + 268 / 25.0f;
         }
     }    
-    /// <summary>
-    /// </summary>
+    
     static public float BounceEaseIn(float p)
     {
         return 1 - BounceEaseOut(1 - p);
     }
-    /// <summary>
-	/// </summary>
+    
 	static public float BounceEaseInOut(float p)
     {
         if (p < 0.5f)

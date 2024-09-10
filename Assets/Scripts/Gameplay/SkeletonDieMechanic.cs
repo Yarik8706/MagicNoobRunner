@@ -8,12 +8,24 @@ namespace Gameplay
         [SerializeField] private Rigidbody[] _rigidbodies;
         [SerializeField] private Animator _animator;
         [SerializeField] private SkeletonAttackMechanic _skeletonAttackMechanic;
+        [SerializeField] private EnemyPartOfBody[] _enemyPartOfBodies;
+        [SerializeField] private int _lives = 3;
 
-        private void OnTriggerEnter(Collider other)
+        private void Start()
         {
-            if (other.CompareTag("Arrow"))
+            foreach (var partOfBody in _enemyPartOfBodies)
             {
-                if(other.GetComponent<StandardizedProjectile>().authorColliders == _skeletonAttackMechanic._authorColliders) return;
+                partOfBody.AddDamageListener(OnDamageEvent);
+            }
+        }
+
+        private void OnDamageEvent(Collider other, int damage)
+        {
+            if (other.attachedRigidbody.GetComponent<StandardizedProjectile>().authorColliders ==
+                _skeletonAttackMechanic._authorColliders) return;
+            _lives -= damage;
+            if (_lives <= 0)
+            {
                 _animator.enabled = false;
                 _skeletonAttackMechanic.enabled = false;
                 foreach (var rg in _rigidbodies)
