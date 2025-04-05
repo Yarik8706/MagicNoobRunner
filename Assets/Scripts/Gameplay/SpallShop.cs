@@ -36,11 +36,11 @@ public class SpallShop : MonoBehaviour
     {
         if (_upgradeSpall1.Length > _levlOfSpall1)
         {
-            //списать деньги  
+            //СЃРїРёСЃР°С‚СЊ РґРµРЅСЊРіРё  
             _intermedialPrice = Convert.ToInt32(_priceOfSpall1.text);
             _intermedialPrice += _priceIncrease[0];
             _priceOfSpall1.text = Convert.ToString(_intermedialPrice);
-            //какая-то переменная = _upgradeSpall1[_levlOfSpall1]    кароче просто что-то улучшается, и в массиве должны быть велечины, на которые время отката и тд, улудшается
+            //РєР°РєР°СЏ-С‚Рѕ РїРµСЂРµРјРµРЅРЅР°СЏ = _upgradeSpall1[_levlOfSpall1]    РєР°СЂРѕС‡Рµ РїСЂРѕСЃС‚Рѕ С‡С‚Рѕ-С‚Рѕ СѓР»СѓС‡С€Р°РµС‚СЃСЏ, Рё РІ РјР°СЃСЃРёРІРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІРµР»РµС‡РёРЅС‹, РЅР° РєРѕС‚РѕСЂС‹Рµ РІСЂРµРјСЏ РѕС‚РєР°С‚Р° Рё С‚Рґ, СѓР»СѓРґС€Р°РµС‚СЃСЏ
             _levlOfSpall1++;
         }
         if (_upgradeSpall1.Length == _levlOfSpall1)
@@ -49,15 +49,16 @@ public class SpallShop : MonoBehaviour
             _priceOfSpall1.text = "Max Level";
         }
     }
+    
     public void PriceSpall2()
     {
         if (_upgradeSpall2.Length > _levlOfSpall2)
         {
-            //списать деньги  
+            //СЃРїРёСЃР°С‚СЊ РґРµРЅСЊРіРё  
             _intermedialPrice = Convert.ToInt32(_priceOfSpall2.text);
             _intermedialPrice += _priceIncrease[1];
             _priceOfSpall2.text = Convert.ToString(_intermedialPrice);
-            //какая-то переменная = _upgradeSpall2[_levlOfSpall2]    кароче просто что-то улучшается, и в массиве должны быть велечины, на которые время отката и тд, улудшается
+            //РєР°РєР°СЏ-С‚Рѕ РїРµСЂРµРјРµРЅРЅР°СЏ = _upgradeSpall2[_levlOfSpall2]    РєР°СЂРѕС‡Рµ РїСЂРѕСЃС‚Рѕ С‡С‚Рѕ-С‚Рѕ СѓР»СѓС‡С€Р°РµС‚СЃСЏ, Рё РІ РјР°СЃСЃРёРІРµ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РІРµР»РµС‡РёРЅС‹, РЅР° РєРѕС‚РѕСЂС‹Рµ РІСЂРµРјСЏ РѕС‚РєР°С‚Р° Рё С‚Рґ, СѓР»СѓРґС€Р°РµС‚СЃСЏ
             _levlOfSpall2++;
         }
         if (_upgradeSpall2.Length == _levlOfSpall2)
@@ -65,15 +66,15 @@ public class SpallShop : MonoBehaviour
             _nameOfSpall2.text = "Max Level";
             _priceOfSpall2.text = "Max Level";
         }
-
     }
+    
     public void CloseButtonPressed()
     {
         _canvasSpalls.SetActive(false);
     }
+    
     public void UpgradeToSpalls()
     {
         _canvasSpalls.SetActive(true);
     }
-
 }

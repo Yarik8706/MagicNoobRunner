@@ -12,7 +12,7 @@ public class StandardizedProjectile : MonoBehaviour
     
     private AudioSource audioSource;
     private float currentTime;    
-    private bool collisionHappened;
+    internal bool CollisionHappened;
     #endregion
 
     #region Public Values
@@ -86,7 +86,7 @@ public class StandardizedProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (!collisionHappened && projectileMeshRenderer.enabled)
+        if (!CollisionHappened && projectileMeshRenderer.enabled)
         {
             transform.rotation = Quaternion.LookRotation(rigid.velocity);
         }
@@ -198,14 +198,14 @@ public class StandardizedProjectile : MonoBehaviour
         rigid.velocity = Vector3.zero;
         rigid.useGravity = false;
         transform.parent = other.transform;
-        collisionHappened = true;
+        CollisionHappened = true;
     }
 
     public void ArrowReset()
     {
         rigid.velocity = Vector3.zero;
         rigid.useGravity = false;
-        collisionHappened = false;
+        CollisionHappened = false;
         rigid.constraints = RigidbodyConstraints.None;
         currentTime = 0;
         gameObject.SetActive(false);

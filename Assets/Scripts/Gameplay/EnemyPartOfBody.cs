@@ -17,7 +17,6 @@ namespace Gameplay
 
         private void OnTriggerEnter(Collider other)
         {
-            UnityEngine.Debug.Log(other.attachedRigidbody.gameObject.name);
             if (other.CompareTag("Arrow"))
             {
                 _onDamage?.Invoke(other, damage);

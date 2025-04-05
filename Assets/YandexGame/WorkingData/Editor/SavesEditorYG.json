@@ -1,5 +1,5 @@
 {
-    "idSave": 2510,
+    "idSave": 2634,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -7,6 +7,6 @@
     "mutedMusic": 0,
     "mutedEffects": 0,
     "freeSpin": 0,
-    "playerData": "{\"coins\":0,\"level\":0,\"heightPrice\":20,\"widthPrice\":10,\"activeWidth\":0,\"activeHeight\":0,\"everyDayRewardsInfo\":[1,0,0,0,0,0],\"lastCallDate\":254,\"freeSpinsCount\":0,\"selectCharacterIndex\":0}",
+    "playerData": "{\"coins\":0,\"level\":0,\"heightPrice\":20,\"widthPrice\":10,\"activeWidth\":0,\"activeHeight\":0,\"everyDayRewardsInfo\":[1,0,0,0,0,0],\"lastCallDate\":255,\"freeSpinsCount\":0,\"selectCharacterIndex\":0}",
     "shopData": "{\"purchaseAsCharacters\":[0]}"
 }

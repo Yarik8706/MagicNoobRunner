@@ -28,7 +28,7 @@ namespace Flatformer.GameData
             MultiTextUI.ChangeLanguageEvent.Invoke();
             YandexGame.InitEnvirData();
             GameDataManager.InitData();
-            ShopManager.Instance.Init();
+            // ShopManager.Instance.Init();
             InitMusicState.Instance.Init();
             GameManager.Instance.StartGame();
             CoinManager.Instance.UpdateTexts();

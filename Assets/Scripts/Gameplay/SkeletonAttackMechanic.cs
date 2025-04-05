@@ -5,12 +5,18 @@ namespace Gameplay
 {
     public class SkeletonAttackMechanic : StandardizedBow
     {
-        [SerializeField] private GameObject[] phases;
+        [SerializeField] private float _armsRotationSpeed = 1f;
         [SerializeField] private float phaseDelaySeconds = 0.5f;
-        [SerializeField] private Transform skeleton;
         [SerializeField] private float _startAttackDistance = 8f;
-        [SerializeField] private Animator _animator;
         [SerializeField] private float _rotationSpeed = 1f;
+        [SerializeField] private float _waitForAttackTime = 2f;
+        
+        [SerializeField] private GameObject[] phases;
+        [SerializeField] private Transform skeleton;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _lArm;
+        [SerializeField] private Transform _rArm;
+        [SerializeField] private Transform _rArmEnd;
  
         private int _currentPhase;
         private bool _isCharging;
@@ -48,20 +54,13 @@ namespace Gameplay
 
             if (_isAttacking || _isPreparing)
             {
-                Vector3 currentRotation = skeleton.rotation.eulerAngles;
-                if(PlayerBehaviour.Instance == null) return;
-                skeleton.LookAt(PlayerBehaviour.Instance.transform);
-                Vector3 rotationToPlayer = skeleton.rotation.eulerAngles;
-                rotationToPlayer = new Vector3(
-                    currentRotation.x, 
-                    Mathf.Lerp(currentRotation.y, 
-                        rotationToPlayer.y + 90, 
-                        _rotationSpeed*Time.deltaTime),
-                    currentRotation.z);
-
-                var rotation = skeleton.rotation;
-                rotation.eulerAngles = rotationToPlayer;
-                skeleton.rotation = rotation;
+                Vector3 direction = PlayerBehaviour.Instance.transform.position - skeleton.transform.position;
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.right);
+                Quaternion targetRotationY = Quaternion.Euler(0f, targetRotation.eulerAngles.y+90, 0f);
+                skeleton.rotation = Quaternion.RotateTowards(skeleton.transform.rotation, targetRotationY, _rotationSpeed * Time.deltaTime);
+                
+                // RotateArmsToPlayer();
+                // RotateBowToPlayer();
             }
 
             if (_currentPhase == phases.Length - 1 && Time.time > _lastPhaseTime + phaseDelaySeconds)
@@ -80,12 +79,39 @@ namespace Gameplay
 
         private IEnumerator WaitPreparingForAttackCoroutine()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(_waitForAttackTime);
             _isAttacking = true;
             _isCharging = true;
             _isPreparing = false;
             _lastPhaseTime = 0;
+            // FirstRotateArmsForAttack();
         }
+
+        private void FirstRotateArmsForAttack()
+        {
+            _lArm.rotation = Quaternion.Euler(-69f, -55f, 145f);
+            _rArm.rotation = Quaternion.Euler(71f, 56f, 145f);
+        }
+
+        // private void RotateArmsToPlayer()
+        // {
+        //     Vector3 direction = PlayerBehaviour.Instance.transform.position - _lArm.position;
+        //     Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //     Quaternion targetRotationZ = Quaternion.Euler(0f, 0f, targetRotation.eulerAngles.z);
+        //     _lArm.rotation = Quaternion.RotateTowards(_lArm.rotation, 
+        //         targetRotationZ, _armsRotationSpeed * Time.deltaTime);
+        //     _rArm.rotation = Quaternion.RotateTowards(_lArm.rotation, 
+        //         targetRotationZ, _armsRotationSpeed * Time.deltaTime);
+        // }
+        //
+        // private void RotateBowToPlayer()
+        // {
+        //     Vector3 direction = PlayerBehaviour.Instance.transform.position - _rArmEnd.position;
+        //     Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //     Quaternion targetRotationZ = Quaternion.Euler(targetRotation.eulerAngles.x, 0f, 0);
+        //     _rArmEnd.rotation = Quaternion.RotateTowards(_rArmEnd.rotation, 
+        //         targetRotationZ, _armsRotationSpeed * Time.deltaTime);
+        // }
 
         protected override void ShootProjectile(float currentPower)
         {

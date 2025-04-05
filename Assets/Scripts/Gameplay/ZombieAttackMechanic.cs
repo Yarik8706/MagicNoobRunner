@@ -12,8 +12,7 @@ namespace Gameplay
             if (other.CompareTag("Player"))
             {
                 _animator.SetTrigger("Attack");
-                Debug.Log("Die Die Die");
-                other.GetComponent<PlayerBehaviour>().DefeatBehaviour();
+                PlayerDieMechanic.Instance.Die();
             }
         }
     }
